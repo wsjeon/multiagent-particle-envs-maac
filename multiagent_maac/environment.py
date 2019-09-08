@@ -81,6 +81,9 @@ class MultiAgentEnv(gym.Env):
         else:
             np.random.seed(seed)
 
+    def seed(self, seed):
+        self._seed(seed)
+
     def _step(self, action_n):
         obs_n = []
         reward_n = []
@@ -108,6 +111,9 @@ class MultiAgentEnv(gym.Env):
             self.post_step_callback(self.world)
         return obs_n, reward_n, done_n, info_n
 
+    def step(self, action_n):
+        return self._step(action_n)
+
     def _reset(self):
         # reset world
         self.reset_callback(self.world)
@@ -119,6 +125,9 @@ class MultiAgentEnv(gym.Env):
         for agent in self.agents:
             obs_n.append(self._get_obs(agent))
         return obs_n
+
+    def reset(self):
+        return self._reset()
 
     # get info used for benchmarking
     def _get_info(self, agent):
