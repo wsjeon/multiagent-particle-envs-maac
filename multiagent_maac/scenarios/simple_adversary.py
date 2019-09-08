@@ -1,6 +1,6 @@
 import numpy as np
-from multiagent.core import World, Agent, Landmark
-from multiagent.scenario import BaseScenario
+from multiagent_maac.core import World, Agent, Landmark
+from multiagent_maac.scenario import BaseScenario
 import random
 
 
