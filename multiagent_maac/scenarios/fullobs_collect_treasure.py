@@ -3,15 +3,20 @@ import seaborn as sns
 from multiagent_maac.core import World, Agent, Landmark, Wall
 from multiagent_maac.scenario import BaseScenario
 
+
 class Scenario(BaseScenario):
     def make_world(self):
         world = World()
         # set any world properties first
         world.cache_dists = True
         world.dim_c = 2
-        num_agents = 8
-        num_collectors = 6
-        num_deposits = num_agents - num_collectors
+        if self.num_agents is None:
+            num_agents = 8
+        else:
+            num_agents = self.num_agents
+        assert num_agents % 4 == 0, "Number of agents should be divided by 4."
+        num_collectors = int(num_agents * 3 / 4)
+        num_deposits = int(num_agents / 4)
         world.treasure_types = list(range(num_deposits))
         world.treasure_colors = np.array(
             sns.color_palette(n_colors=num_deposits))

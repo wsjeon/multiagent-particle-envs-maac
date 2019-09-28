@@ -8,8 +8,13 @@ class Scenario(BaseScenario):
         world = World()
         # set any world properties first
         world.dim_c = 5
-        num_listeners = 4
-        num_speakers = 4
+        if self.num_agents is None:
+            num_listeners = 4
+            num_speakers = 4
+        else:
+            assert self.num_agents % 2 == 0, "Number of agents should be divided by 2."
+            num_listeners = int(self.num_agents / 2)
+            num_speakers = int(self.num_agents / 2)
         num_landmarks = 6
         world.landmark_colors = np.array(
             sns.color_palette(n_colors=num_landmarks))
